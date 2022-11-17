@@ -15,11 +15,12 @@
         {
             "name"    : "Nexfor Informática",
             "email"   : "contato@nexfor.com.br",
-            "homepage": "http://www.nexfor.com.br",
+            "homepage": "http://www.softr.com.br",
             "role": "Developer"
         }
     ],
     "require": {
+        "php": ">=7.4.33"
     },
     "autoload": {
         "psr-4": {
