@@ -1,0 +1,30 @@
+{
+    "name"       : "yuricolen/php-api-bancointer",
+    "type"       : "library",
+    "description": "Biblioteca para utilizar a API do banco Inter v2.",
+    "keywords"   : ["API", "Inter", "Banco Inter", "Boleto"],
+    "homepage"   : "https://github.com/yuricolen/php-api-bancointer",
+    "license"    : "MIT",
+    "authors": [
+        {
+            "name"    : "Yuri Colen",
+            "email"   : "contato@yuricolen.dev",
+            "homepage": "http://www.yuricolen.dev",
+            "role": "Developer"
+        },
+        {
+            "name"    : "Nexfor Informática",
+            "email"   : "contato@nexfor.com.br",
+            "homepage": "http://www.nexfor.com.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.33"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nexfor\\Api\\BancoInter\\": "src/"
+        }
+    }
+}
