@@ -5,7 +5,9 @@ use Exception;
 use ReflectionClass;
 
 class Pagador extends Beneficiario implements \JsonSerializable
-{    
+{
+    public string $numero = "";
+    public string $complemento = "";
     public string $email = "";
     public string $ddd = "";
     public string $telefone = "";
