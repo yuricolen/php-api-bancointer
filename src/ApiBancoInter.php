@@ -7,16 +7,13 @@ use stdClass;
 
 abstract class ApiBancoInter
 {
-    protected $base_url = 'https://cdpj.partners.bancointer.com.br';
-    protected $token_request;
-    protected $crt_path;
-    protected $key_path;
-    protected $token_path;
-    protected $access_token;
-    protected $token_type;
-    protected $expires_in;
+    protected string $base_url = 'https://cdpj.partners.bancointer.com.br';
+    protected TokenRequest $token_request;
+    protected string $crt_path;
+    protected string $key_path;
+    public TokenResponse $token;   
 
-    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, string $token_path)
+    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, TokenResponse $token = null)
     {
         if (!file_exists($crt_path)) throw new Exception("Arquivo crt não foi encontrado");
         if (!file_exists($key_path)) throw new Exception("Arquivo key não foi encontrado");
@@ -24,10 +21,10 @@ abstract class ApiBancoInter
         $this->token_request = $token_request;
         $this->crt_path = $crt_path;
         $this->key_path = $key_path;
-        $this->token_path = $token_path;
+        $this->token = $token;
     }
 
-    private function getTokenOAuth(): void
+    private function GetTokenOAuth(): TokenResponse
     {
         $response = $this->PostRequest('oauth/v2/token', $this->token_request, [] , false);
 
@@ -35,38 +32,20 @@ abstract class ApiBancoInter
         
         $token = json_decode($response->body);
         $token->{'expires_in'} = time() + $token->{'expires_in'};
-        $json = json_encode($token);
 
-        if (!file_put_contents($this->token_path, $json)) throw new Exception("Erro ao gravar arquivo do token.");
+        return new TokenResponse(
+            $token->{'access_token'},
+            $token->{'token_type'},
+            $token->{'expires_in'},
+            $token->{'scope'}
+        );
     }
 
-    private function loadTokenFile()
+    private function CheckOAuthToken(): void
     {
-        if (!file_exists($this->token_path)) throw new Exception("Arquivo do token não existe.");
-
-        $token_file = file_get_contents($this->token_path);
-        $token = json_decode($token_file);
-
-        $this->access_token = $token->{'access_token'};
-        $this->token_type = $token->{'token_type'};
-        $this->expires_in = $token->{'expires_in'};
-    }
-
-    private function checkOAuthToken(): void
-    {
-        if (!file_exists($this->token_path)) $this->getTokenOAuth();
-
-        $this->loadTokenFile();
-
-        if (time() >= ($this->expires_in - 10)) {
-            $this->getTokenOAuth();
-            $this->loadTokenFile();
+        if($this->token == null || $this->token->IsExpired()){
+            $this->token = $this->GetTokenOAuth();
         }
-    }
-
-    public function GerateTokenOAth()
-    {
-        $this->checkOAuthToken();
     }
 
     private function CrulInit(array $http_params = [])
@@ -117,9 +96,9 @@ abstract class ApiBancoInter
 
     protected function GetRequest(string $endpoint, array $http_params = []) : \stdClass
     { 
-        $this->checkOAuthToken();
+        $this->CheckOAuthToken();
 
-        $http_params[] = "Authorization: {$this->token_type} {$this->access_token}" ;
+        $http_params[] = "Authorization: {$this->token->token_type} {$this->token->access_token}" ;
 
         $ch = $this->CrulInit($http_params);
         curl_setopt_array(
@@ -137,7 +116,7 @@ abstract class ApiBancoInter
     protected function PostRequest(string $endpoint, \JsonSerializable $data, array $http_params = [], $post_json = true) : \stdClass
     {
         if (!($data instanceof TokenRequest)) {
-            $this->checkOAuthToken();
+            $this->CheckOAuthToken();
         }
 
         if (empty($http_params)) {
@@ -150,7 +129,7 @@ abstract class ApiBancoInter
             $prepared_data = http_build_query($data->jsonSerialize());
         }
         
-        if($this->access_token) $http_params[] = "Authorization: {$this->token_type} {$this->access_token}" ;
+        if($this->token) $http_params[] = "Authorization: {$this->token->token_type} {$this->access_token}" ;
 
         $ch = $this->CrulInit($http_params);
         curl_setopt_array(

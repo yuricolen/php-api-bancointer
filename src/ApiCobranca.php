@@ -13,9 +13,9 @@ use stdClass;
 
 class ApiCobranca extends ApiBancoInter
 {
-    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, string $token_path)
+    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, TokenResponse $token)
     {
-        parent::__construct($token_request, $crt_path, $key_path, $token_path);
+        parent::__construct($token_request, $crt_path, $key_path, $token);
     }
 
     public function CreateBoleto(Boleto $boleto): Boleto
@@ -26,9 +26,9 @@ class ApiCobranca extends ApiBancoInter
 
         if($response->http_code != 200) throw new Exception("Inter API Create Boleto Error {$response->http_code}: {$obj->detail}");
 
-        $boleto->setNossoNumero($obj->nossoNumero);
-        $boleto->setCodigoBarras($obj->codigoBarras);
-        $boleto->setLinhaDigitavel($obj->linhaDigitavel);
+        $boleto->nossoNumero = $obj->nossoNumero;
+        $boleto->codigoBarras = $obj->codigoBarras;
+        $boleto->linhaDigitavel = $obj->linhaDigitavel;
 
         return $boleto;
     }
