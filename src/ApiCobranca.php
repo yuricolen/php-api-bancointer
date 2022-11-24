@@ -13,7 +13,7 @@ use stdClass;
 
 class ApiCobranca extends ApiBancoInter
 {
-    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, TokenResponse $token = null)
+    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, ?TokenResponse $token = null)
     {
         parent::__construct($token_request, $crt_path, $key_path, $token);
     }

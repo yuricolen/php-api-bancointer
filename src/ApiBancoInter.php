@@ -13,7 +13,7 @@ abstract class ApiBancoInter
     protected string $key_path;
     public TokenResponse $token;   
 
-    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, TokenResponse $token = null)
+    public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, ?TokenResponse $token = null)
     {
         if (!file_exists($crt_path)) throw new Exception("Arquivo crt não foi encontrado");
         if (!file_exists($key_path)) throw new Exception("Arquivo key não foi encontrado");
