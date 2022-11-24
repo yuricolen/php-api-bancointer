@@ -11,7 +11,7 @@ abstract class ApiBancoInter
     protected TokenRequest $token_request;
     protected string $crt_path;
     protected string $key_path;
-    public TokenResponse $token;   
+    public ?TokenResponse $token;   
 
     public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, ?TokenResponse $token = null)
     {
