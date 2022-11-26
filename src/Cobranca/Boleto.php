@@ -3,25 +3,25 @@ namespace Nexfor\Api\BancoInter\Cobranca;
 
 class Boleto implements \JsonSerializable
 {
-    public string $seuNumero = null;
+    public string $seuNumero;
     public float $valorNominal = 0.0;    
-    public string $dataVencimento = null;
+    public string $dataVencimento;
     public int $numDiasAgenda = 60;
     //public float $valorAbatimento = 0.0;
 
-    public Pagador $pagador = null;
-    public Mensagem $mensagem = null;
-    public Desconto $desconto1 = null;
-    public Desconto $desconto2 = null;
-    public Desconto $desconto3 = null;
-    public Multa $multa = null;
-    public Mora $mora = null;
+    public Pagador $pagador;
+    public Mensagem $mensagem;
+    public Desconto $desconto1;
+    public Desconto $desconto2;
+    public Desconto $desconto3;
+    public Multa $multa;
+    public Mora $mora;
 
-    public string $nossoNumero = null;
-    public string $codigoBarras = null;
-    public string $linhaDigitavel = null;
+    public string $nossoNumero;
+    public string $codigoBarras;
+    public string $linhaDigitavel;
 
-    public string $dataEmissao = null;
+    public string $dataEmissao;
     //public string $dataLimite = "SESSENTA";
     //public $cnpjCPFBeneficiario = null;
 
