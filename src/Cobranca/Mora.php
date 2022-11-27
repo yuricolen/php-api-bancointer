@@ -6,9 +6,9 @@ use ReflectionClass;
 class Mora implements \JsonSerializable
 {
     public string $codigoMora = "ISENTO";
-    public string $data = "";
-    public float $taxa = 0.0;
-    public float $valor = 0.0;
+    public ?string $data;
+    public float $taxa = 0;
+    public float $valor = 0;
 
     public const ISENTO = 'ISENTO';
     public const TAXA_MENSAL = 'TAXAMENSAL';

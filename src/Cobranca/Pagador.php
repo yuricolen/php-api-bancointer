@@ -6,11 +6,11 @@ use ReflectionClass;
 
 class Pagador extends Beneficiario implements \JsonSerializable
 {
-    public string $numero = "";
-    public string $complemento = "";
-    public string $email = "";
-    public string $ddd = "";
-    public string $telefone = "";
+    public ?string $numero;
+    public ?string $complemento;
+    public ?string $email;
+    public ?string $ddd;
+    public ?string $telefone;
 
     public const PESSOA_FISICA = "FISICA";
     public const PESSOA_JURIDICA = "JURIDICA";

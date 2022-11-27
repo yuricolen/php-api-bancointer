@@ -6,9 +6,9 @@ use ReflectionClass;
 class Multa implements \JsonSerializable
 {
     public string $codigoMulta = "NAOTEMMULTA";
-    public string $data = "";
-    public float $taxa = 0.0;
-    public float $valor = 0.0;
+    public ?string $data;
+    public float $taxa = 0;
+    public float $valor = 0;
 
     public const NAO_TEM_MULTA = 'NAOTEMMULTA';
     public const VALOR_FIXO = 'VALORFIXO';

@@ -6,9 +6,9 @@ use ReflectionClass;
 class Desconto implements \JsonSerializable
 {
     public string $codigoDesconto = "NAOTEMDESCONTO";
-    public string $data = "";
-    public float $taxa = 0.0;
-    public float $valor = 0.0;
+    public ?string $data = null;
+    public float $taxa = 0;
+    public float $valor = 0;
 
     public const NAO_TEM_DESCONTO = 'NAOTEMDESCONTO';
     public const VALOR_FIXO = 'VALORFIXODATAINFORMADA';
