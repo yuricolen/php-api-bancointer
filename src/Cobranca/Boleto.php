@@ -10,12 +10,13 @@ class Boleto implements \JsonSerializable
     //public float $valorAbatimento = 0.0;
 
     public Pagador $pagador;
-    public Mensagem $mensagem;
-    public Desconto $desconto1;
-    public Desconto $desconto2;
-    public Desconto $desconto3;
-    public Multa $multa;
-    public Mora $mora;
+    public ?Mensagem $mensagem;
+    public ?Desconto $desconto1;
+    public ?Desconto $desconto2;
+    public ?Desconto $desconto3;
+    public ?Multa $multa;
+    public ?Mora $mora;
+    public ?Beneficiario $beneficiario;
 
     public string $nossoNumero;
     public string $codigoBarras;
@@ -27,16 +28,6 @@ class Boleto implements \JsonSerializable
 
     public const SESSENTA_DIAS = 60;
     public const TRINTA_DIAS = 30;
-
-    public function __construct()
-    {
-        $this->mensagem = new Mensagem();
-        $this->desconto1 = new Desconto();
-        $this->desconto2 = new Desconto();
-        $this->desconto3 = new Desconto();
-        $this->multa = new Multa();
-        $this->mora = new Mora();
-    }
 
     public function jsonSerialize(): array
     {
