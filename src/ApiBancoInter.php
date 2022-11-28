@@ -81,7 +81,7 @@ abstract class ApiBancoInter
         $obj = new StdSerializable();
         $obj->http_code = $http_code;
         $obj->body = $server_response;
-        
+
         $this->body_response = $obj;
 
         return $obj;
@@ -132,7 +132,7 @@ abstract class ApiBancoInter
             $prepared_data = http_build_query($data->jsonSerialize());
         }
         
-        if($this->token) $http_params[] = "Authorization: {$this->token->token_type} {$this->access_token}" ;
+        if($this->token) $http_params[] = "Authorization: {$this->token->token_type} {$this->token->access_token}" ;
 
         $ch = $this->CrulInit($http_params);
         curl_setopt_array(
