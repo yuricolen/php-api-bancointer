@@ -12,7 +12,7 @@ abstract class ApiBancoInter
     protected string $crt_path;
     protected string $key_path;
     public ?TokenResponse $token;
-    public string $body_response;
+    public string $response;
 
     public function __construct(TokenRequest $token_request, string $crt_path, string $key_path, ?TokenResponse $token = null)
     {
@@ -25,7 +25,7 @@ abstract class ApiBancoInter
         $this->token = $token;
     }
 
-    private function GetTokenOAuth(): TokenResponse
+    public function GetTokenOAuth(): TokenResponse
     {
         $response = $this->PostRequest('oauth/v2/token', $this->token_request, [] , false);
 
@@ -81,6 +81,8 @@ abstract class ApiBancoInter
         $obj = new StdSerializable();
         $obj->http_code = $http_code;
         $obj->body = $server_response;
+        
+        $this->body_response = $obj;
 
         return $obj;
     }
