@@ -19,7 +19,7 @@ class TokenResponse implements \JsonSerializable
 
     function IsExpired() : bool
     {
-        return (time() >= ($this->token->expires_in - 10));
+        return (time() >= ($this->expires_in - 10));
     }
 
     public function jsonSerialize(): array
