@@ -76,8 +76,6 @@ abstract class ApiBancoInter
 
         if ($error !== '') throw new Exception($error);
 
-        if ($server_response == '') throw new Exception("Resposta vazia, provavelmente o limite de chamadas foi atingido...\n");
-
         $obj = new StdSerializable();
         $obj->http_code = $http_code;
         $obj->body = $server_response;

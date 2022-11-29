@@ -165,7 +165,7 @@ class ApiCobrancaInter extends ApiBancoInter
 
         $obj = json_decode($response->body);
 
-        if($response->http_code != 200) throw new Exception($error_message . "{$response->http_code} {$obj->detail}");
+        if($response->http_code != 204) throw new Exception($error_message . "{$response->http_code} {$obj->detail}");
 
         return true;
     }
